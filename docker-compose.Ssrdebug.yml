@@ -1,0 +1,25 @@
+version: '3.7'
+networks:
+  traefik-public:
+    external: true
+services:
+ staging:
+    image: ${IMAGE?Variable not set}:${VERSION?Variable not set}
+    networks:
+      - traefik-public
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.staging.rule=Host(`staging.fatboar.fr`)"
+        - "traefik.http.routers.staging.service=staging"
+        - "traefik.http.services.staging.loadbalancer.server.port=4000"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.http.routers.staging.entrypoints=web"
+        - "traefik.http.routers.staging.tls.certresolver=le"
+        - "traefik.http.routers.staging.entrypoints=websecure"
+

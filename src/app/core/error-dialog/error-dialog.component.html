@@ -1,0 +1,10 @@
+<div>
+    <div>
+        <p *ngIf="data.reason">
+            Reason: {{data.reason |translate}}
+        </p>
+        <p *ngIf="data.status">
+            Status: {{String(data.status)| translate}}
+        </p>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+
+<div fxLayout="column" fxLayoutAlign="space-around center" >
+<button mat-raised-button color="primary"  class="btn" (click)="getWinner()">{{'admin.getWinner' | translate}}</button>
+
+
+    <mat-card *ngIf="winner"   class="ticket" >
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-around start">
+        <diV *ngIf="winner.data.user.email" fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-label>  <strong>{{'account.Email' | translate}}</strong></mat-label>
+            <mat-label class="text">{{winner.data?.user?.email }}</mat-label>
+        </diV>
+        <diV *ngIf="winner.data.user.username" fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-label> <strong>{{'account.username' | translate}}</strong></mat-label>
+            <mat-label class="text">{{winner.data?.user?.username }}</mat-label>
+        </diV>
+        <diV *ngIf="winner.data.user.personal_information.full_name" fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-label> <strong>{{'account.fullName' | translate}}</strong></mat-label>
+            <mat-label class="text">{{winner.data?.user?.personal_information?.full_name }}</mat-label>
+        </diV>
+        </mat-card-content>
+    </mat-card>
+<button mat-raised-button color="primary"  class="btn" (click)="getTicket()">{{'admin.getTicket' | translate}}</button>
+
+    <mat-card *ngIf="ticket" class="ticket" >
+        <mat-card-content fxLayout="column" fxLayoutAlign="space-around start">
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+            <mat-label ><strong>{{ 'admin.number' | translate}}</strong></mat-label>
+            <mat-label class="text">{{ ticket.ticket}}</mat-label>
+            <button class="text" mat-raised-button (click)="copyticket()" [color]="color">Copy</button>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 3px">
+        <mat-label ><strong>{{ 'admin.expiration' | translate}}</strong></mat-label>
+        <mat-label class="text"> {{ticket.expiration |  date:'mediumDate': '+0200' : 'fr'}}</mat-label>
+        </div>
+        </mat-card-content>
+    </mat-card>
+
+</div>

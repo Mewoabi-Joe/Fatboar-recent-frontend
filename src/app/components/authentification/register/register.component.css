@@ -1,0 +1,51 @@
+.my-form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+	margin-bottom: 40px;
+}
+
+.full-width {
+	width: 100%;
+}
+.first-input {
+	margin-left: 10px;
+	width: 100%;
+}
+@media only screen and (max-width: 600px) {
+	.title {
+		font-size: 12px;
+	}
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+	flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+	justify-content: space-between;
+	align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+	margin-left: 8px;
+}
+
+.flex-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bottom-color {
+	border-bottom: 1px solid #ff4081;
+}
+
+.btnRegister {
+	width: 40%;
+	margin-top: 30px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}

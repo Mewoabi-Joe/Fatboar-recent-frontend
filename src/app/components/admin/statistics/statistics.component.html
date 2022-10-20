@@ -1,0 +1,55 @@
+    <div *ngIf="(statistics$ |async) as statisticsList else loading">
+        <div *ngIf="statisticsList.data.length===0" style="font-weight: bold; margin: 10px"> {{ 'game.satisticTickets' | translate}}</div>
+        <div class="content" >
+            <div fxLayout="row wrap" fxLayoutGap="16px grid" >
+
+                <div  fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let statistic of statisticsList.data">
+                    <mat-card-title> {{'game.usedTicketTitle'| translate}} {{' '}}  {{statistic[0]}}</mat-card-title>
+                    <mat-card-content>
+                        <google-chart #chart
+                                      [type]="statisticsList.type"
+                                      [data]="statistic[1]"
+                                      [options]="statisticsList.options"
+                                      width="100%"
+                                      height="300"
+                                      [columns]="statisticsList.columns">
+                        </google-chart>
+                    </mat-card-content>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="(carWinnerStatistics$ |async) as carWinnerStatisticsList">
+        <div *ngIf="carWinnerStatisticsList.data.length===0" style="font-weight: bold;margin: 10px" >
+           {{ 'game.satisticCarWinner' | translate}}
+
+        </div>
+        <div class="content">
+            <div fxLayout="row wrap" fxLayoutGap="16px grid" >
+                <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%"  *ngFor="let statistic of carWinnerStatisticsList.data">
+                    <mat-card-title> {{'game.carWinner'| translate}} {{' '}}  {{statistic[0]}}</mat-card-title>
+                    <mat-card-content>
+                        <google-chart #chart
+                                      [type]="carWinnerStatisticsList.type"
+                                      [data]="statistic[1]"
+                                      [options]="carWinnerStatisticsList.options"
+                                      width="100%"
+                                      height="300"
+                                      [columns]="carWinnerStatisticsList.columns">
+                        </google-chart>
+                    </mat-card-content>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<ng-template #loading >
+    <div  fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px;font-weight: bold">
+        {{'statistics.statisticsNotFound'| translate}}
+    </div>
+
+
+</ng-template>
+

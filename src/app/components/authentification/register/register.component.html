@@ -1,0 +1,265 @@
+<div fxLayout="column" fxLayoutAlign="space-around center" style="overflow: hidden">
+	<div
+		fxLayout="row"
+		fxLayoutAlign="space-between center"
+		style="margin: 20px; margin-top: 40px"
+		*ngIf="userType === 'User'"
+	>
+		<!-- <button (click)="signInWithFB()" mat-button>
+            <fa-icon [icon]="['fab', 'facebook']" style="font-size:30px;"></fa-icon>
+        </button> -->
+
+		<button mat-flat-button style="margin-right: 10px" (click)="basicAuthentification()">
+			<div class="flex-button" [ngClass]="{ 'bottom-color': basicAuth }">
+				<mat-icon style="font-size: 20px">email</mat-icon><span>Inscription manuelle</span>
+			</div>
+		</button>
+		<p style="margin: 0px">Ou</p>
+		<button style="margin-left: 10px" (click)="signInWithFacebook()" mat-flat-button>
+			<div class="flex-button" [ngClass]="{ 'bottom-color': !basicAuth }">
+				<fa-icon [icon]="['fab', 'facebook']" style="font-size: 20px; margin-right: 5px"></fa-icon><span>Facebook</span>
+			</div>
+		</button>
+	</div>
+
+	<div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="regle">
+		<form
+			[formGroup]="registerSocialForm"
+			(ngSubmit)="onSubmitSocial()"
+			fxLayout="column"
+			fxLayoutAlign="space-around center"
+		>
+			<div fxLayout="column" fxLayoutAlign="space-around start" style="margin-left: 30px">
+				<mat-checkbox formControlName="newsLettre">{{ "register.newsLettre" | translate }}</mat-checkbox>
+				<div fxLayout="row" fxLayoutAlign="center">
+					<mat-checkbox formControlName="legal"></mat-checkbox>
+					<a mat-button (click)="legalNotice()" color="primary" style="margin-left: -5px; margin-top: -5px">{{
+						"register.legal" | translate
+					}}</a>
+				</div>
+			</div>
+			<div style="margin-top: 5px">
+				<button [disabled]="loading" mat-raised-button type="submit">
+					{{ "register.registerBtn" | translate }}
+				</button>
+				<span *ngIf="loading">
+					<mat-spinner diameter="10"></mat-spinner>
+				</span>
+			</div>
+		</form>
+	</div>
+	<div fxLayout="column" fxLayoutAlign="space-around stretch" *ngIf="basicAuth">
+		<form
+			class="my-form"
+			[formGroup]="registerForm"
+			(ngSubmit)="onSubmit()"
+			fxLayout="column"
+			fxLayoutAlign="space-around center"
+		>
+			<mat-accordion multi class="example-headers-align">
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title class="title">
+							{{ "register.titlePanelPersonal" | translate }}
+						</mat-panel-title>
+						<mat-panel-description>
+							<mat-icon>account_circle</mat-icon>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+
+					<mat-form-field class="first-input">
+						<mat-label> {{ "register.firstName" | translate }}</mat-label>
+						<input matInput type="text" name="fname" formControlName="fname" pattern="[A-Za-zÀ-ÿ-\s]*" required />
+						<mat-error *ngIf="registerForm.get('fname').hasError('required')">
+							{{ "register.errerfirstName" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('fname').hasError('pattern')"> </mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.lastName" | translate }}</mat-label>
+						<input matInput type="text" name="lname" formControlName="lname" pattern="[A-Za-zÀ-ÿ-\s]*" required />
+						<mat-error *ngIf="registerForm.get('lname').hasError('required')">
+							{{ "register.errerlastName" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('lname').hasError('pattern')"> </mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.Email" | translate }}</mat-label>
+						<input
+							matInput
+							type="email"
+							placeholder="Email"
+							name="email"
+							formControlName="email"
+							(focusout)="isEmailToken($event)"
+							required
+						/>
+						<mat-error *ngIf="registerForm.get('email').hasError('required')">
+							{{ "register.errerEmail" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('email').hasError('isEmailAvailable')">
+							{{ "register.errerEmailTaken" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('email').hasError('email')"> </mat-error>
+						<mat-error *ngIf="registerForm.get('email').hasError('pattern')"> </mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.username" | translate }}</mat-label>
+						<input
+							matInput
+							type="text"
+							name="userName"
+							formControlName="userName"
+							(focusout)="isUserNameToken($event)"
+							required
+						/>
+						<mat-error *ngIf="registerForm.get('userName').hasError('required')">
+							{{ "register.errerUsername" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('userName').hasError('isUserNameAvailable')">
+							{{ "register.errerUsernameTaken" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('userName').hasError('pattern')"> </mat-error>
+						<mat-error *ngIf="registerForm.get('userName').hasError('minlength')"> </mat-error>
+						<mat-error *ngIf="registerForm.get('userName').hasError('maxlength')"> </mat-error>
+					</mat-form-field>
+
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.pwd" | translate }}</mat-label>
+						<input
+							matInput
+							type="password"
+							placeholder="Password"
+							name="password"
+							formControlName="password"
+							required
+						/>
+						<mat-error *ngIf="registerForm.get('password').hasError('required')">
+							{{ "register.errerPwd" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('password').hasError('minlength')">
+							{{ "register.errerPwdPatternMin" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('password').hasError('maxlength')">
+							{{ "register.errerPwdPatternMax" | translate }}
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.pwdConf" | translate }}</mat-label>
+						<input
+							matInput
+							type="password"
+							placeholder="Password confirmation"
+							name="passwordConfirmation"
+							formControlName="passwordConfirmation"
+							required
+						/>
+						<mat-error *ngIf="registerForm.get('passwordConfirmation').hasError('required')">
+							{{ "register.errerConfPwd" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('passwordConfirmation').hasError('notSame')">
+							{{ "register.errerPwdConf" | translate }}
+						</mat-error>
+					</mat-form-field>
+				</mat-expansion-panel>
+
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title class="title">
+							{{ "register.addressPanelTitle" | translate }}
+						</mat-panel-title>
+						<mat-panel-description>
+							<mat-icon>map</mat-icon>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<mat-form-field class="first-input">
+						<mat-label> {{ "register.addressLabel" | translate }}</mat-label>
+						<input
+							matInput
+							name="address"
+							type="search"
+							formControlName="adress1"
+							[matAutocomplete]="auto"
+							(input)="adresseChange($event)"
+							required
+						/>
+
+						<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn.bind(this)">
+							<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+								{{ option.label }}
+							</mat-option>
+						</mat-autocomplete>
+						<mat-error *ngIf="registerForm.get('adress1').hasError('required')">
+							{{ "register.errerAddress" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('adress1').hasError('pattern')">
+							{{ "register.errerAddressPatern" | translate }}
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.adress2" | translate }}</mat-label>
+						<input matInput type="text" name="address2" formControlName="adress2" />
+						<mat-error *ngIf="registerForm.get('adress2').hasError('pattern')">
+							{{ "register.errerAddressPatern" | translate }}
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.city" | translate }}</mat-label>
+						<input matInput type="text" name="city" formControlName="city" required />
+						<mat-error *ngIf="registerForm.get('city').hasError('pattern')">
+							{{ "register.errerAddressPatern" | translate }}
+						</mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.zip" | translate }}</mat-label>
+						<input matInput type="number" name="zipCode" formControlName="zipCode" pattern="[0-9]{5}" required />
+						<mat-error *ngIf="registerForm.get('zipCode').hasError('required')">
+							{{ "register.errerZipCode" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('zipCode').hasError('pattern')">
+							{{ "register.errerAddressPatern" | translate }}
+						</mat-error>
+						<mat-error *ngIf="registerForm.get('zipCode').hasError('minlength')"> </mat-error>
+						<mat-error *ngIf="registerForm.get('zipCode').hasError('maxlength')"> </mat-error>
+					</mat-form-field>
+					<mat-form-field class="full-width">
+						<mat-label> {{ "register.state" | translate }}</mat-label>
+						<input matInput type="text" name="state" formControlName="state" />
+						<mat-error *ngIf="registerForm.get('state').hasError('pattern')">
+							{{ "register.errerAddressPatern" | translate }}
+						</mat-error>
+					</mat-form-field>
+				</mat-expansion-panel>
+
+				<mat-expansion-panel>
+					<mat-expansion-panel-header>
+						<mat-panel-title class="title">
+							{{ "register.legal" | translate }}
+						</mat-panel-title>
+						<mat-panel-description>
+							<mat-icon>rule_folder</mat-icon>
+						</mat-panel-description>
+					</mat-expansion-panel-header>
+					<div fxLayout="column" fxLayoutAlign="space-around start" style="margin-left: 30px">
+						<mat-checkbox formControlName="newsLettre">{{ "register.newsLettre" | translate }}</mat-checkbox>
+						<div fxLayout="row" fxLayoutAlign="center">
+							<mat-checkbox formControlName="legal"></mat-checkbox>
+							<a mat-button (click)="legalNotice()" color="primary" style="margin-left: -5px; margin-top: -5px">{{
+								"register.legal" | translate
+							}}</a>
+						</div>
+					</div>
+				</mat-expansion-panel>
+			</mat-accordion>
+
+			<div style="margin-top: 5px; width: 100%">
+				<button class="btnRegister" [disabled]="loading" mat-raised-button color="primary" type="submit">
+					{{ "register.registerBtn" | translate }}
+				</button>
+				<span *ngIf="loading">
+					<mat-spinner diameter="10"></mat-spinner>
+				</span>
+			</div>
+		</form>
+	</div>
+</div>

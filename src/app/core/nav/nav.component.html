@@ -1,0 +1,106 @@
+<mat-sidenav-container class="sidenav-container">
+	<mat-sidenav #drawer class="sidenav" fixedInViewport="true" mode="over">
+		<mat-nav-list>
+			<div class="smallNavbar"></div>
+
+			<div *ngIf="user$ | async as user; else loading">
+				<div *ngIf="user">
+					<a mat-list-item routerLink="/" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">home</mat-icon>
+						<div class="title">{{ "navBar.home" | translate }}</div>
+					</a>
+					<a mat-list-item routerLink="account" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">account_circle</mat-icon>
+						<div class="title">{{ "navBar.account" | translate }}</div>
+					</a>
+
+					<a mat-list-item routerLink="legal" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">rule_folder</mat-icon>
+						<div class="title">{{ "navBar.legal" | translate }}</div>
+					</a>
+					<a mat-list-item routerLink="rg" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">folder</mat-icon>
+						<div class="title">{{ "navBar.rg" | translate }}</div>
+					</a>
+					<a mat-list-item routerLink="game" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">games</mat-icon>
+						<div class="title">{{ "navBar.game" | translate }}</div>
+					</a>
+					<a
+						*ngIf="user.type === 'User'"
+						mat-list-item
+						routerLink="historic"
+						routerLinkActive="active"
+						(click)="toggle()"
+					>
+						<mat-icon [ngStyle]="{ color: '#B22226' }">pending_actions</mat-icon>
+						<div class="title">{{ "navBar.historic" | translate }}</div>
+					</a>
+
+					<a *ngIf="user.type !== 'User'" mat-list-item routerLink="admin" routerLinkActive="active" (click)="toggle()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">admin_panel_settings</mat-icon>
+						<div class="title">{{ "navBar.admin" | translate }}</div>
+					</a>
+					<a
+						*ngIf="user.type !== 'User'"
+						mat-list-item
+						routerLink="statistics"
+						routerLinkActive="active"
+						(click)="toggle()"
+					>
+						<mat-icon [ngStyle]="{ color: '#B22226' }">assessment</mat-icon>
+						<div class="title">{{ "navBar.statistics" | translate }}</div>
+					</a>
+					<a mat-list-item routerLink="/" routerLinkActive="active" (click)="logout()">
+						<mat-icon [ngStyle]="{ color: '#B22226' }">forward</mat-icon>
+						<div class="title">{{ "navBar.logout" | translate }}</div>
+					</a>
+				</div>
+			</div>
+			<ng-template #loading>
+				<a mat-list-item routerLink="/" routerLinkActive="active" (click)="toggle()">
+					<mat-icon [ngStyle]="{ color: '#B22226' }">home</mat-icon>
+					<div class="title">{{ "navBar.home" | translate }}</div>
+				</a>
+				<a mat-list-item routerLink="/auth" routerLinkActive="active" (click)="toggle()">
+					<mat-icon [ngStyle]="{ color: '#B22226' }">login</mat-icon>
+					<div class="title">{{ "navBar.login" | translate }} <span> | S'incrire</span></div>
+				</a>
+				<a mat-list-item routerLink="legal" routerLinkActive="active" (click)="toggle()">
+					<mat-icon [ngStyle]="{ color: '#B22226' }">rule_folder</mat-icon>
+					<div class="title">{{ "navBar.legal" | translate }}</div>
+				</a>
+				<a mat-list-item routerLink="rg" routerLinkActive="active" (click)="toggle()">
+					<mat-icon [ngStyle]="{ color: '#B22226' }">folder</mat-icon>
+					<div class="title">{{ "navBar.rg" | translate }}</div>
+				</a>
+			</ng-template>
+		</mat-nav-list>
+	</mat-sidenav>
+	<mat-sidenav-content>
+		<mat-toolbar class="color">
+			<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+				<mat-icon [ngStyle]="{ color: '#B22226' }">menu</mat-icon>
+			</button>
+
+			<span class="example-spacer"></span>
+			<button mat-icon-button matTooltip="{{ 'navBar.livraison' | translate }}">
+				<mat-icon [ngStyle]="{ color: '#B22226' }">delivery_dining</mat-icon>
+			</button>
+			<diV class="livraison" *ngIf="!isHandset"> {{ "navBar.livraison" | translate }}</diV>
+			<!-- <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon [ngStyle]="{'color':'#B22226'}">language</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <div mat-menu-item  #langSelect fxLayout="column" fxLayoutAlign="space-around center" >
+          <button mat-button *ngFor="let lang of translate.getLangs()" [value]="lang"   (click)="changeLang(lang)">
+            <span *ngIf="lang==='fr'" class="flag-icon flag-icon-fr"></span>
+            <span *ngIf="lang==='en'" class="flag-icon flag-icon-us"></span>
+          </button>
+        </div>
+
+      </mat-menu>-->
+		</mat-toolbar>
+		<ng-content></ng-content>
+	</mat-sidenav-content>
+</mat-sidenav-container>

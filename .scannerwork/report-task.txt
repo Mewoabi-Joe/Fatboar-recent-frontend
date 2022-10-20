@@ -1,0 +1,6 @@
+projectKey=angular-app
+serverUrl=http://sonarqube.fatboar-burger.fr
+serverVersion=8.4.2.36762
+dashboardUrl=http://sonarqube.fatboar-burger.fr/dashboard?id=angular-app
+ceTaskId=AXSTtyDZm84JS8PlJoEV
+ceTaskUrl=http://sonarqube.fatboar-burger.fr/api/ce/task?id=AXSTtyDZm84JS8PlJoEV

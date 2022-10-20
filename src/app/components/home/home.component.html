@@ -1,0 +1,40 @@
+<div fxLayout="column" fxLayoutAlign="space-around stretch" class="color">
+	<div fxLayout="row wrap" fxLayoutAlign="center center" fxLayoutGap="10px grid">
+		<div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+			<img mat-card-image width="100%" height="100%" src="assets/images/car.png" alt="car" />
+		</div>
+
+		<div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%" fxLayout="column" fxLayoutAlign="space-around center">
+			<div fxLayout="column" fxLayoutAlign="space-around center" class="gameTextCadre">
+				<p class="gameText">Pour tout Achat d'une valeur de 18 € ou plus</p>
+				<p class="gameText">Dans des l'un des restaurents reçoits un code promo et</p>
+				<p class="gameIn">TENTER DE GAGNER UNE RANGR ROVER</p>
+				<button mat-button (click)="gotoGame()" class="gameIn">Je participe</button>
+			</div>
+
+			<div style="margin-top: 20px">
+				<p class="textUnderCar">Pour chaque participation une récompense est offerte</p>
+				<a mat-button class="textBtn" routerLink="rg" routerLinkActive="active" target="_blank"
+					>CLIQUEZ ICI POUR CONSULTER LES RÈGLES DU JEU-CONCOURS}</a
+				>
+			</div>
+		</div>
+	</div>
+	<div fxFlex="50%" fxFlex.xs="100%" fxFlex.sm="33%">
+		<mdb-carousel
+			[isControls]="true"
+			class="carousel-multi-item multi-animation"
+			[type]="'carousel-multi-item'"
+			[animation]="'slide'"
+		>
+			<mdb-carousel-item *ngFor="let item of slides; let i = index">
+				<div class="col-md-4" *ngFor="let card of item; let cardIndex = index">
+					<mdb-card class="my-1 bg-danger">
+						<mdb-card-img [src]="card.img" alt="Card image cap"></mdb-card-img>
+						<p class="p-3 text-light">{{ card.title }}</p>
+					</mdb-card>
+				</div>
+			</mdb-carousel-item>
+		</mdb-carousel>
+	</div>
+</div>

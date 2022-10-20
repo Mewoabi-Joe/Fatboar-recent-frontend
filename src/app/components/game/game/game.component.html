@@ -1,0 +1,85 @@
+<mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="secondFormGroup" >
+        <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>{{'game.ticketTab' | translate}}</ng-template>
+            <mat-form-field>
+                <mat-label>{{'game.ticketLabel' | translate}}</mat-label>
+                <input matInput formControlName="secondCtrl" placeholder="{{'game.ticketPla' | translate}}"
+                       required>
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperNext aria-label="next  accordian">{{'game.next' | translate}}</button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>{{'game.gain' | translate}}</ng-template>
+    <div *ngIf="(gain$ |async) as gain else loading " fxLayout="column" fxLayoutAlign="space-around center">
+        <mat-card  *ngIf="user.type ==='User'">
+        <mat-card-content  fxLayout="column" fxLayoutAlign="space-around start">
+        <div *ngIf="gain.award===60"><strong>{{'game.gain60'| translate}}</strong></div>
+        <div *ngIf="gain.award===20"><strong>{{'game.gain20'| translate}}</strong></div>
+        <div *ngIf="gain.award===10"><strong>{{'game.gain10'| translate}}</strong></div>
+        <div *ngIf="gain.award===6"><strong>{{'game.gain6'| translate}}</strong></div>
+        <div *ngIf="gain.award===4"><strong>{{'game.gain4'| translate}}</strong></div>
+        </mat-card-content>
+        </mat-card>
+
+
+
+        <mat-card class="spacingCard" *ngIf="user.type !=='User'" >
+        <mat-card-content  fxLayout="column" fxLayoutAlign="space-around start" >
+            <div *ngIf="gain.award" fxLayout="row" fxLayoutAlign="space-around center">
+                <mat-label><strong> {{'game.award' | translate}}</strong></mat-label>
+                <div *ngIf="gain.award===60" class="text">{{'game.adminGain60'| translate}}</div>
+                <div *ngIf="gain.award===20" class="text">{{'game.adminGain20'| translate}}</div>
+                <div *ngIf="gain.award===10" class="text">{{'game.adminGain10'| translate}}</div>
+                <div *ngIf="gain.award===6" class="text">{{'game.adminGain6'| translate}}</div>
+                <div *ngIf="gain.award===4" class="text">{{'game.adminGain4'| translate}}</div>
+            </div>
+            <div *ngIf="gain.status" fxLayout="row" fxLayoutAlign="space-around center" class="spacing">
+                <mat-label><strong> {{'game.status' | translate}}</strong></mat-label>
+                <mat-label class="text">{{gain.status | translate}}</mat-label>
+            </div>
+            <div *ngIf="gain.owner" fxLayout="column" fxLayoutAlign="space-around start" class="spacing">
+                <mat-label class="spacing"> <strong>{{'game.resto' | translate}}</strong></mat-label>
+                <div fxLayout="column" fxLayoutAlign="space-around start" style="margin-left: 8px" class="spacing">
+                    <div *ngIf="gain.owner.username" fxLayout="row" fxLayoutAlign="space-around center" >
+                        <mat-label> <strong>{{'game.name' | translate}}</strong></mat-label>
+                        <mat-label class="text">{{gain.owner.username}}</mat-label></div>
+                    <div *ngIf="gain.owner.email" fxLayout="row" fxLayoutAlign="space-around center" class="spacing">
+                        <mat-label> <strong>{{'game.email' | translate}}</strong></mat-label>
+                        <mat-label class="text"> {{gain.owner.email}}</mat-label></div>
+                </div>
+
+            </div>
+            <div *ngIf="gain.user && gain.status==='Used'" fxLayout="column" fxLayoutAlign="space-around start" class="spacing">
+                <mat-label> <strong>{{'general.customer' | translate}}</strong></mat-label>
+                <div fxLayout="column" fxLayoutAlign="space-around start" style="margin-left: 8px">
+                <div *ngIf="gain.user.fullName" fxLayout="row" fxLayoutAlign="space-around center" class="spacing">
+                    <mat-label> <strong>{{'account.fullName' | translate}}</strong></mat-label>
+                    <mat-label class="text"> {{gain.user.fullName}}</mat-label></div>
+                <div *ngIf="gain.user.username" fxLayout="row" fxLayoutAlign="space-around center" class="spacing">
+                    <mat-label> <strong>{{'account.username' | translate}}</strong></mat-label>
+                    <mat-label class="text">{{gain.user.username}}</mat-label></div>
+                <div *ngIf="gain.user.email" fxLayout="row" fxLayoutAlign="space-around center" class="spacing">
+                    <mat-label><strong> {{'game.email' | translate}}</strong></mat-label>
+                    <mat-label class="text"> {{gain.user.email}}</mat-label></div>
+                </div>
+            </div>
+
+
+        </mat-card-content>
+        </mat-card>
+
+    </div>
+        <ng-template #loading>
+            <div  fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px;">
+            <mat-spinner diameter="10"></mat-spinner>
+            </div>
+        </ng-template>
+        <div>
+            <button mat-button (click)="reset(stepper)" aria-label="reset">{{'game.reset' | translate}}</button>
+        </div>
+    </mat-step>
+</mat-horizontal-stepper>

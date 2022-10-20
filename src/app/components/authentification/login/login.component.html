@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="!requestPwd">
+	<div fxLayout="row" fxLayoutAlign="space-between center" style="margin: 20px; margin-top: 40px">
+		<button mat-flat-button style="margin-right: 10px" (click)="basicAuthentification()">
+			<div class="flex-button" [ngClass]="{ 'bottom-color': basicAuth }">
+				<mat-icon style="font-size: 20px">email</mat-icon><span>Connexion manuelle</span>
+			</div>
+		</button>
+		<p style="margin: 0px">Ou</p>
+		<button style="margin-left: 10px" (click)="signInWithFacebook()" mat-flat-button>
+			<div class="flex-button" [ngClass]="{ 'bottom-color': !basicAuth }">
+				<fa-icon [icon]="['fab', 'facebook']" style="font-size: 20px; margin-right: 5px"></fa-icon><span>Facebook</span>
+			</div>
+		</button>
+	</div>
+	<form [formGroup]="loginForm" class="login-form" *ngIf="basicAuth">
+		<div class="container">
+			<mat-form-field appearance="fill">
+				<mat-label>Entrez votre identifiant</mat-label>
+				<input
+					matInput
+					formControlName="identifier"
+					type="email"
+					[ngClass]="{ 'is-invalid': submitted && f.identifier.errors }"
+					required
+				/>
+				<mat-error *ngIf="f.identifier.errors?.required">{{ "login.errerUsername" | translate }}</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="container">
+			<mat-form-field>
+				<mat-label>Tapez votre mot de passe</mat-label>
+				<input
+					matInput
+					[type]="hide ? 'password' : 'text'"
+					formControlName="password"
+					[ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+					required
+				/>
+				<button
+					mat-icon-button
+					matSuffix
+					(click)="hide = !hide"
+					[attr.aria-label]="'Hide password'"
+					[attr.aria-pressed]="hide"
+				>
+					<mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+				</button>
+				<mat-error *ngIf="f.password.errors" class="invalid-feedback">
+					<mat-error *ngIf="f.password.errors?.required">{{ "login.errerPwd" | translate }}</mat-error>
+				</mat-error>
+			</mat-form-field>
+		</div>
+		<div class="underContainer">
+			<button mat-button (click)="requestResetPwd(true)">Mot de passe oublié ?</button>
+		</div>
+		<button class="btnLogin" [disabled]="loading" type="submit" mat-raised-button color="primary" (click)="onSubmit()">
+			Connexion
+			<span *ngIf="loading">
+				<mat-spinner diameter="10"></mat-spinner>
+			</span>
+		</button>
+	</form>
+	<!-- <div fxLayout="row" fxLayoutAlign="space-around center" style="margin-top: 20px">
+		<button (click)="signInWithGoogle()" mat-button>
+			<fa-icon [icon]="['fab', 'google']" style="font-size: 30px"></fa-icon>
+		</button>
+	</div> -->
+</div>
+<div fxLayout="column" fxLayoutAlign="space-around center" *ngIf="requestPwd">
+	<app-request-password (requestPwdEmit)="requestResetPwd(false)"></app-request-password>
+</div>

@@ -1,0 +1,88 @@
+<div *ngIf="loading" fxLayout="row" fxLayoutAlign="center center">
+	<mat-spinner diameter="10"></mat-spinner>
+</div>
+
+<div *ngIf="userFromApi" fxLayout="column" fxLayoutAlign="space-between stretch">
+	<mat-accordion class="example-headers-align">
+		<mat-expansion-panel>
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					<strong> {{ "account.titlePanelPersonal" | translate }}</strong>
+				</mat-panel-title>
+				<mat-panel-description>
+					<mat-icon>account_circle</mat-icon>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			<div fxLayout="column" fxLayoutAlign="space-around start">
+				<diV>
+					<mat-label>
+						<strong>{{ "account.fullName" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.fullName }}</mat-label>
+				</diV>
+
+				<diV>
+					<mat-label>
+						<strong>{{ "account.Email" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.email }}</mat-label>
+				</diV>
+				<diV *ngIf="userFromApi.emailStatus === 'Unconfirmed'" fxLayoutAlign="center center">
+					<button mat-button color="primary" (click)="sendConfirmEmail()">
+						{{ "account.emailConfirm" | translate }}
+					</button>
+					<mat-icon matBadge="1" matBadgeColor="warn">mark_email_unread</mat-icon>
+				</diV>
+				<diV *ngIf="userFromApi.username">
+					<mat-label>
+						<strong>{{ "account.username" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.username }}</mat-label>
+				</diV>
+			</div>
+		</mat-expansion-panel>
+
+		<mat-expansion-panel *ngIf="userFromApi.address.address1">
+			<mat-expansion-panel-header>
+				<mat-panel-title>
+					<strong> {{ "account.addressPanelTitle" | translate }}</strong>
+				</mat-panel-title>
+				<mat-panel-description>
+					<mat-icon>map</mat-icon>
+				</mat-panel-description>
+			</mat-expansion-panel-header>
+			<div fxLayout="column" fxLayoutAlign="space-around start">
+				<diV *ngIf="userFromApi.address.address1">
+					<mat-label
+						><strong> {{ "account.addressLabel" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.address.address1 }}</mat-label>
+				</diV>
+				<div *ngIf="userFromApi.address.address2">
+					<mat-label>
+						<strong> {{ "account.adress2" | translate }}</strong>
+					</mat-label>
+					<mat-label class="text">{{ userFromApi.address.address2 }} </mat-label>
+				</div>
+				<div *ngIf="userFromApi.address.city">
+					<mat-label>
+						<strong> {{ "account.city" | translate }} </strong>
+					</mat-label>
+					<mat-label class="text">{{ userFromApi.address.city }}</mat-label>
+				</div>
+				<div *ngIf="userFromApi.address.zip">
+					<mat-label
+						><strong> {{ "account.zip" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.address.zip }}</mat-label>
+				</div>
+				<div *ngIf="userFromApi.address.state">
+					<mat-label
+						><strong> {{ "account.state" | translate }}</strong></mat-label
+					>
+					<mat-label class="text">{{ userFromApi.address.state }}</mat-label>
+				</div>
+			</div>
+		</mat-expansion-panel>
+	</mat-accordion>
+</div>

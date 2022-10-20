@@ -1,0 +1,42 @@
+<div *ngIf="(historicList$ |async) as historicList else loading">
+  
+     
+      <div class="content">
+        <div fxLayout="row wrap" fxLayoutGap="16px grid">
+          <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let historic of historicList">
+        <mat-card class="mat-elevation-z4">
+          <mat-card-header>
+            <mat-card-title>   {{historic.creation_date |  date:'mediumDate': '+0200' : 'fr'}}</mat-card-title>
+          </mat-card-header>
+     
+          <mat-card-content fxLayout="column" fxLayoutAlign="space-around start">
+              <diV *ngIf="historic.award" fxLayout="row" fxLayoutAlign="center">
+                  <div *ngIf="historic.award===60"><strong>{{'game.gain60'| translate}}</strong></div>
+                  <div *ngIf="historic.award===20"><strong>{{'game.gain20'| translate}}</strong></div>
+                  <div *ngIf="historic.award===10"><strong>{{'game.gain10'| translate}}</strong></div>
+                  <div *ngIf="historic.award===6"><strong>{{'game.gain6'| translate}}</strong></div>
+                  <div  *ngIf="historic.award===4"><strong>{{'game.gain4'| translate}}</strong></div>
+              </diV>
+            <div *ngIf="historic.owner.username" fxLayout="row" fxLayoutAlign="center">
+               <mat-label> <strong>{{'game.restName' | translate}}</strong></mat-label>
+              <mat-label class="text">{{historic.owner.username}}</mat-label></div>
+            <div *ngIf="historic.owner.email" fxLayout="row" fxLayoutAlign="center">
+               <mat-label> <strong>{{'game.email' | translate}}</strong></mat-label>
+              <mat-label class="text">{{historic.owner.email}}</mat-label></div>
+          </mat-card-content>
+       
+        </mat-card>
+        </div>
+        </div>
+    </div>
+ 
+  
+</div>
+
+<ng-template #loading >
+    <div  fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px;">
+        <strong> {{'historic.historicList'| translate}}</strong>
+    </div>
+
+
+</ng-template>

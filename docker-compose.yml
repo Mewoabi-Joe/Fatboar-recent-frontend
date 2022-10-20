@@ -1,0 +1,28 @@
+version: '3.7'
+networks:
+  traefik-public:
+    external: true
+services:
+ angular:
+    image: ${IMAGE?Variable not set}:${VERSION?Variable not set}
+    networks:
+      - traefik-public
+    environment:
+      - NGINX_HOST=fatboar.fr
+      - NGINX_PORT=8080
+    deploy:
+      mode: replicated
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.angular.rule=Host(`fatboar.fr`)"
+        - "traefik.http.routers.angular.service=angular"
+        - "traefik.http.services.angular.loadbalancer.server.port=8080"
+        - "traefik.docker.network=traefik-public"
+        - "traefik.http.routers.angular.entrypoints=web"
+        - "traefik.http.routers.angular.tls.certresolver=le"
+        - "traefik.http.routers.angular.entrypoints=websecure"
+

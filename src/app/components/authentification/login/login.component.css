@@ -1,0 +1,32 @@
+.container {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+}
+.underContainer {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+}
+.btnLogin {
+	display: block;
+	width: 80%;
+	margin-top: 15px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.flex-button {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.bottom-color {
+	border-bottom: 1px solid #ff4081;
+}
+
+.login-form {
+	margin-bottom: 40px;
+}

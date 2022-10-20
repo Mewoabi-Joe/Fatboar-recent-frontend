@@ -1,0 +1,11 @@
+<div fxLayout="row" fxLayoutAlign="center center" style="margin-top: 20px" *ngIf="loading">
+	<mat-spinner diameter="10"></mat-spinner>
+</div>
+<div fxLayout="column" fxLayoutAlign="space-around center" style="margin-top: 100px" *ngIf="confirmed">
+	<div>
+		<img class="logo" width="200px" height="200px" src="assets/images/success.png" alt="success" />
+	</div>
+	<diV style="margin-top: 10px">
+		<h3>{{ "resetPwd.emailConfirm" | translate }}</h3>
+	</diV>
+</div>

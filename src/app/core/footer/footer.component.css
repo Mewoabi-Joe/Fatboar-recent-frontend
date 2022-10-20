@@ -1,0 +1,53 @@
+.root {
+	height: 100%;
+	width: 100%;
+	background-size: auto;
+	background: url(../../../assets/images/footer2000px.png) no-repeat center;
+	background-color: black;
+}
+.navbar {
+	height: 100px;
+	width: 100%;
+	background: url(../../../assets/images/footer.png) no-repeat;
+	background-size: cover;
+	overflow: hidden;
+}
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	background-color: black;
+	color: white;
+	text-align: center;
+}
+.logo {
+	width: 100px;
+	height: 80px;
+}
+.icon {
+	width: auto;
+	height: 43px;
+}
+.iconFacebook {
+	width: auto;
+	height: 40px;
+}
+.direction {
+	color: white;
+	margin-right: 10px;
+	font-size: 18px;
+}
+@media only screen and (max-width: 600px) {
+	.logo {
+		margin-top: 20px;
+		width: 100px;
+		height: 80px;
+	}
+}
+@media only screen and (max-width: 800px) {
+	.direction {
+		color: white;
+		font-size: 12px;
+	}
+}

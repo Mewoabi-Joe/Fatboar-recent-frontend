@@ -1,0 +1,9 @@
+.button {
+    width: 155px;
+}
+@media only screen and (max-width: 600px) {
+    .button {
+        width: 155px;
+        margin-top: 15px;
+    }
+}

@@ -1,0 +1,52 @@
+.color {
+	background: url(../../../assets/images/fond.png) no-repeat;
+	background-color: #fcf9d2;
+	background-size: cover;
+	overflow: hidden;
+	height: 100%;
+}
+
+.text {
+	margin-top: -30px;
+}
+
+.gameText {
+	font-size: 19px;
+}
+.gameTextCadre {
+	outline-offset: 3px;
+	outline: 2px dashed black;
+	transform: rotate(-3deg);
+}
+.gameIn {
+	color: #b22226;
+	font-size: 21px;
+}
+
+.textUnderCar {
+	color: #b22226;
+	font-size: 15px;
+	margin-left: 8px;
+}
+@media only screen and (max-width: 600px) {
+	.gameText {
+		font-size: 14px;
+	}
+	.gameIn {
+		color: #b22226;
+		font-size: 16px;
+	}
+	.textUnderCar {
+		color: #b22226;
+		font-size: 14px;
+		margin-left: 8px;
+	}
+}
+.textBtn {
+	color: #b22226;
+	font-size: 12px;
+	margin-top: -10px;
+	text-transform: lowercase;
+	text-decoration: underline;
+	text-decoration-color: #b22226;
+}
