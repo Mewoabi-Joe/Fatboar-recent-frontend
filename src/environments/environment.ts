@@ -16,8 +16,8 @@ export const environment = {
 	// GOOGLEID: "210660531086-3g2491qm3c96q47p1nku1rklkt6gnnk3.apps.googleusercontent.com",
 	// GOOGLEID: "134342267572-q914347gr0v8caqe2srp0k9vcqv09ett.apps.googleusercontent.com",
 	GOOGLEID: "134342267572-b86v9snln5cirtohg6885p97qnles5n5.apps.googleusercontent.com",
-	// FACEBOOKID: "456836045280938",
-	FACEBOOKID: "821997445603573",
+	FACEBOOKID: "1825770511096330",
+	// FACEBOOKID: "821997445603573", this is marwanns
 };
 /*
  * For easier debugging in development mode, you can import the following file
